@@ -74,9 +74,12 @@ class Ascent_UC_Project {
 	 * @param $query
 	 */
 	public function modify_archive_query( $query ) {
-		if ( $query->is_main_query() && is_post_type_archive( 'wsuwp_uc_project' ) ) {
+		if ( ! is_admin() && $query->is_main_query() && is_post_type_archive( 'wsuwp_uc_project' ) ) {
 			// We want all projects to display.
 			$query->set( 'posts_per_page', '2000' );
+			$query->set( 'meta_key', '_ascent_uc_project_number' );
+			$query->set( 'orderby', 'meta_value' );
+			$query->set( 'order', 'ASC' );
 		}
 	}
 

@@ -7,6 +7,9 @@
 			<?php else : ?>
 				<h2 class="article-title"><a href="<?php the_permalink(); ?>" rel="bookmark"><?php the_title(); ?></a></h2>
 			<?php endif; ?>
+			<?php if ( $uc_project_number = ascent_get_project_number() ) : ?>
+				<div class="project-number"><span class="project-number-label">Project Number:</span> <?php echo esc_html( $uc_project_number ); ?></div>
+			<?php endif; ?>
 		</hgroup>
 	</header>
 

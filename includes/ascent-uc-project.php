@@ -66,5 +66,20 @@ class Ascent_UC_Project {
 
 		update_post_meta( $post_id, '_ascent_uc_project_number', sanitize_text_field( $_POST['project_number'] ) );
 	}
+
+	public function get_project_number( $post_id ) {
+		$project_number = get_post_meta( $post_id, '_ascent_uc_project_number', true );
+		return $project_number;
+	}
 }
-new Ascent_UC_Project();
+$ascent_uc_project = new Ascent_UC_Project();
+
+function ascent_get_project_number( $post_id = 0 ) {
+	global $ascent_uc_project;
+
+	if ( 0 === $post_id ) {
+		$post_id = get_the_ID();
+	}
+	return $ascent_uc_project->get_project_number( $post_id );
+
+}

@@ -7,6 +7,7 @@ class Ascent_UC_Project {
 	public function __construct() {
 		add_action( 'add_meta_boxes', array( $this, 'add_meta_boxes' ) );
 		add_action( 'save_post', array( $this, 'save_post' ), 10, 2 );
+		add_action( 'pre_get_posts', array( $this, 'modify_archive_query' ) );
 	}
 
 	/**
@@ -65,6 +66,18 @@ class Ascent_UC_Project {
 		}
 
 		update_post_meta( $post_id, '_ascent_uc_project_number', sanitize_text_field( $_POST['project_number'] ) );
+	}
+
+	/**
+	 * Modify the archive query for projects.
+	 *
+	 * @param $query
+	 */
+	public function modify_archive_query( $query ) {
+		if ( $query->is_main_query() && is_post_type_archive( 'wsuwp_uc_project' ) ) {
+			// We want all projects to display.
+			$query->set( 'posts_per_page', '2000' );
+		}
 	}
 
 	public function get_project_number( $post_id ) {
